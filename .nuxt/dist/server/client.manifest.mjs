@@ -1,0 +1,1 @@
+export { default } from "file:///home/michal/tutorials/vet-app-front/node_modules/@nuxt/vite-builder/dist/runtime/client.manifest.mjs"
