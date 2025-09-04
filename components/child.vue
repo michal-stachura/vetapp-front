@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { ChildProps, HungryKid } from '~/types/Child'
+import type { Child, HungryKid } from '~/types/Child'
 
-const props = withDefaults(defineProps<ChildProps>(), {
+const props = withDefaults(defineProps<Child>(), {
   skinColor: 'bg-orange-800'
 })
 

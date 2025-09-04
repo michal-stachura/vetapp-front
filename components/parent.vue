@@ -1,16 +1,12 @@
 <script setup lang="ts">
-import type { HungryKid } from '~/types/Child'
+import type { HungryKid, Child } from '~/types/Child'
 
-const childOneSpin = ref(false)
-const childTwoSpin = ref(false)
+const props = defineProps<{
+  kids: Child[]
+}>()
+
+const kids = ref<Child[]>([...props.kids])
 const hungryKids = ref<HungryKid[]>([])
-
-const childOneButtonText = computed(() => {
-  return childOneSpin.value ? 'Stop Spinning Child One' : 'Spin Child One'
-})
-const childTwoButtonText = computed(() => {
-  return childTwoSpin.value ? 'Stop Spinning Child Two' : 'Spin Child Two'
-})
 
 const cookingFor = computed(() => {
   switch (hungryKids.value.length) {
@@ -45,25 +41,27 @@ const toggleCooking = (hungryKid: HungryKid) => {
 </script>
 
 <template>
-  <div class="bg-blue-400 m-8 p-4 rounded">
+  <div class="bg-blue-400 p-4 rounded">
     <h4 class="font-bold">Parent Component</h4>
-    <button class="mr-2" @click="childOneSpin = !childOneSpin">
-      {{ childOneButtonText }}
-    </button>
-    <button @click="childTwoSpin = !childTwoSpin">
-      {{ childTwoButtonText }}
+    <button
+      class="mr-2"
+      v-for="kid in kids"
+      :key="`button_${kid.id}`"
+      @click="kid.isSpinning = !kid.isSpinning"
+    >
+      {{ kid.isSpinning ? 'Stop Spinning' : 'Spin' }} {{ kid.name }}
     </button>
     <div class="my-4" v-if="cookingFor">
       <h4>{{ cookingFor }}</h4>
     </div>
     <div class="flex gap-4 mt-24">
-      <child name="Kate" :is-spinning="childOneSpin" @hungry="toggleCooking" />
-      <child name="Bart" @hungry="toggleCooking" />
       <child
-        name="John"
-        skin-color="bg-blue-800"
-        :is-spinning="childTwoSpin"
-        @hungry="toggleCooking"
+        v-for="kid in kids"
+        :id="kid.id"
+        :name="kid.name"
+        :is-spinning="kid.isSpinning"
+        :is-hungry="kid.isHungry"
+        :skin-color="kid.skinColor || undefined"
       />
     </div>
   </div>

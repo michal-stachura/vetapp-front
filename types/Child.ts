@@ -4,9 +4,11 @@ export type SkinColor =
   | 'bg-blue-800'
   | 'bg-orange-800'
 
-export interface ChildProps {
+export interface Child {
+  id: string
   skinColor?: SkinColor
   isSpinning?: boolean
+  isHungry: boolean
   name: string
 }
 
