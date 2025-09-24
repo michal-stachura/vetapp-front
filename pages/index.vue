@@ -43,5 +43,6 @@ const p2_kids: Child[] = [
   <div class="flex gap-2 p-2">
     <parent :kids="p1_kids" />
     <parent :kids="p2_kids" />
+    <teacher class="bg-green-400" />
   </div>
 </template>
