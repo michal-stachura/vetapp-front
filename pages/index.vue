@@ -1,48 +1,23 @@
 <script setup lang="ts">
-import type { Child } from '~/types/Child'
+import { familiesData } from '~/data/families'
+import type { Family } from '~/types/Family'
 
-const p1_kids: Child[] = [
-  {
-    id: 'p1_kate',
-    name: 'Kate',
-    isSpinning: false,
-    isHungry: false
-  },
-  {
-    id: 'p1_bart',
-    name: 'Bart',
-    isSpinning: false,
-    isHungry: false
-  },
-  {
-    id: 'p1_john',
-    name: 'John',
-    isSpinning: false,
-    isHungry: false
-  }
-]
-const p2_kids: Child[] = [
-  {
-    id: 'p2_tom',
-    name: 'Tom',
-    isSpinning: false,
-    isHungry: false,
-    skinColor: 'bg-green-800'
-  },
-  {
-    id: 'p2_chris',
-    name: 'Chris',
-    isSpinning: false,
-    isHungry: false,
-    skinColor: 'bg-green-800'
-  }
-]
+const families = ref<Family[]>(familiesData)
+
+// 1. Pass spinning kids names in family to teacher
+const spinningKids = computed(() => {
+  return families.value.flatMap(family =>
+    family.children.filter(kid => kid.isSpinning).map(kid => kid.name)
+  )
+})
+
+// 2. Teacher displays spinning kids names
+// 3. Create button in teacher component to stop all kids from spinning
 </script>
 
 <template>
   <div class="flex gap-2 p-2">
-    <parent :kids="p1_kids" />
-    <parent :kids="p2_kids" />
-    <teacher class="bg-green-400" />
+    <family v-for="family in families" :family="family" />
+    <teacher class="bg-green-400" :spinningKids="spinningKids" />
   </div>
 </template>

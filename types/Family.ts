@@ -16,3 +16,10 @@ export interface HungryKid {
   name: string
   meal: string
 }
+
+export interface Family {
+  id: string
+  father: string
+  mother: string
+  children: Child[]
+}

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Child, HungryKid } from '~/types/Child'
+import type { Child, HungryKid } from '~/types/Family'
 
 const props = withDefaults(defineProps<Child>(), {
   skinColor: 'bg-orange-800'
