@@ -13,6 +13,14 @@ const spinningKids = computed(() => {
     family.children.filter(kid => kid.isSpinning).map(kid => kid.name)
   )
 })
+
+const stopAllKids = () => {
+  families.value.forEach(family => {
+    family.children.forEach(kid => {
+      kid.isSpinning = false
+    })
+  })
+}
 </script>
 
 <template>
@@ -20,6 +28,6 @@ const spinningKids = computed(() => {
     <family v-for="family in families" :family="family" />
   </div>
   <div>
-    <school :spinningKids="spinningKids" />
+    <school :spinningKids="spinningKids" @stopAllKids="stopAllKids" />
   </div>
 </template>

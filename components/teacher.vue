@@ -2,6 +2,7 @@
 defineProps<{
   spinningKids: string[]
 }>()
+defineEmits(['stopAllKids'])
 </script>
 <template>
   <div class="bg-blue-400 p-4 rounded">
@@ -12,5 +13,11 @@ defineProps<{
         {{ kid }}
       </li>
     </ul>
+    <button
+      class="mt-2 p-2 bg-red-500 text-white rounded"
+      @click="$emit('stopAllKids')"
+    >
+      Stop All Kids
+    </button>
   </div>
 </template>

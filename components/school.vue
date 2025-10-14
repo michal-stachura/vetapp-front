@@ -1,5 +1,6 @@
 <script setup lang="ts">
 defineProps<{ spinningKids: string[] }>()
+defineEmits(['stopAllKids'])
 
 const classes = ref(['Math', 'Science', 'History'])
 </script>
@@ -13,7 +14,11 @@ const classes = ref(['Math', 'Science', 'History'])
         :key="className"
         class="p-2 border bg-gray-300 rounded w-80"
       >
-        <class :className="className" :spinningKids="$props.spinningKids" />
+        <class
+          :className="className"
+          :spinningKids="$props.spinningKids"
+          @stopAllKids="$emit('stopAllKids')"
+        />
       </div>
     </div>
   </div>
