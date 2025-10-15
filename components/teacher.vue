@@ -1,8 +1,9 @@
 <script setup lang="ts">
-defineProps<{
-  spinningKids: string[]
-}>()
-defineEmits(['stopAllKids'])
+import { storeToRefs } from 'pinia'
+import { useFamilyStore } from '~/store/useFamilyStore'
+
+const { stopAllKids } = useFamilyStore()
+const { spinningKids } = storeToRefs(useFamilyStore())
 </script>
 <template>
   <div class="bg-blue-400 p-4 rounded">
@@ -13,10 +14,7 @@ defineEmits(['stopAllKids'])
         {{ kid }}
       </li>
     </ul>
-    <button
-      class="mt-2 p-2 bg-red-500 text-white rounded"
-      @click="$emit('stopAllKids')"
-    >
+    <button class="mt-2 p-2 bg-red-500 text-white rounded" @click="stopAllKids">
       Stop All Kids
     </button>
   </div>

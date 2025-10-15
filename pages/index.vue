@@ -1,26 +1,9 @@
 <script setup lang="ts">
-import { familiesData } from '~/data/families'
-import type { Family } from '~/types/Family'
+import { storeToRefs } from 'pinia'
+import { useFamilyStore } from '~/store/useFamilyStore'
 
-const families = ref<Family[]>(familiesData)
-
-// 1. Pass spinning kids names in family to teacher - done
-// 2. Teacher displays spinning kids names - done
-// 3. Create button in teacher component to stop all kids from spinning
-
-const spinningKids = computed(() => {
-  return families.value.flatMap(family =>
-    family.children.filter(kid => kid.isSpinning).map(kid => kid.name)
-  )
-})
-
-const stopAllKids = () => {
-  families.value.forEach(family => {
-    family.children.forEach(kid => {
-      kid.isSpinning = false
-    })
-  })
-}
+// Move this complex solution into Pinia storage!!!
+const { families } = storeToRefs(useFamilyStore())
 </script>
 
 <template>
@@ -28,6 +11,6 @@ const stopAllKids = () => {
     <family v-for="family in families" :family="family" />
   </div>
   <div>
-    <school :spinningKids="spinningKids" @stopAllKids="stopAllKids" />
+    <school />
   </div>
 </template>
